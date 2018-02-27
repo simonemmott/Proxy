@@ -4,7 +4,7 @@
 
   <groupId>com.k2</groupId>
   <artifactId>Proxy</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Proxy</name>
@@ -38,7 +38,7 @@
     <dependency>
     	<groupId>com.k2</groupId>
     	<artifactId>Proforma</artifactId>
-    	<version>0.1.1</version>
+    	<version>0.1.2-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <build>

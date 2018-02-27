@@ -4,7 +4,7 @@
 
   <groupId>com.k2</groupId>
   <artifactId>Proxy</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
   <packaging>jar</packaging>
 
   <name>Proxy</name>
@@ -21,7 +21,7 @@
     <dependency>
       <groupId>com.k2</groupId>
       <artifactId>Util</artifactId>
-      <version>0.2.8-SNAPSHOT</version>
+      <version>0.2.8</version>
     </dependency>
     	<dependency>
 	    <groupId>ch.qos.logback</groupId>
@@ -38,7 +38,7 @@
     <dependency>
     	<groupId>com.k2</groupId>
     	<artifactId>Proforma</artifactId>
-    	<version>0.1.1-SNAPSHOT</version>
+    	<version>0.1.1</version>
     </dependency>
   </dependencies>
   <build>

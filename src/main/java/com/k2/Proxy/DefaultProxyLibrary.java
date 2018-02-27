@@ -9,11 +9,29 @@ import com.k2.Expressions.predicate.PredicateBuilder;
 import com.k2.Proforma.Proforma;
 import com.k2.Proforma.ProformaLibrary;
 
+/**
+ * This class implements the ProformaLibrary interface and as such provides implementations of proformas by name.
+ * 
+ * The proformas implemented by this library provide an implementation of the AProxy interface for any given class.
+ * 
+ * @author simon
+ *
+ */
 public class DefaultProxyLibrary implements ProformaLibrary {
 	
+	/**
+	 * The predicate builder used by the proformas in this library
+	 */
 	private static PredicateBuilder pb = new PredicateBuilder();
+	
+	/**
+	 * The static field provides an abbreviation for the static methods of Proforma to make the proforma defined in this library easier to read.
+	 */
 	private static Proforma P = new Proforma();
 	
+	/**
+	 * The proxy method proforma generates the java for the proxied public methods of the proxy class
+	 */
 	@SuppressWarnings("static-access")
 	private static Proforma proxyMethodProforma = new Proforma("proxyMethod")
 			.addIf(P.p(Boolean.class, "hasParameters"), 
@@ -45,6 +63,10 @@ public class DefaultProxyLibrary implements ProformaLibrary {
 			.add("}")
 			.add();
 	
+	/**
+	 * The class proxy body proforma generates the java for the body of the proxy class and includes the proxy method proforma for each public 
+	 * proxied method.
+	 */
 	@SuppressWarnings("static-access")
 	private static Proforma classProxyBodyProforma = new Proforma("classProxyBody")
 			.add("public class ", P.p("className"), "_Proxy extends ",  P.p("className"), " implements AProxy<", P.p("className"), "> {")
@@ -65,10 +87,17 @@ public class DefaultProxyLibrary implements ProformaLibrary {
 			.add(proxyMethodProforma.with(P.p(Set.class, "publicMethods")))
 			.add("}");
 	
+	/**
+	 * The import proforma generates the java for a java dependency
+	 */
 	@SuppressWarnings("static-access")
 	private static Proforma importProforma = new Proforma("import").setEmbedded(false)
 			.add(P.p("importClause"));
 	
+	/**
+	 * The class proxy proforma generates the whole of the java source for the proxy class by calling the embedded import proforma 
+	 * for each dependency of the proxy class and the class proxy body proforma
+	 */
 	@SuppressWarnings("static-access")
 	private static Proforma classProxyProforma = new Proforma("classProxy").setAutoIncrementIndent(false)
 			.add("package ", P.p("packageName"), ";")
@@ -76,6 +105,11 @@ public class DefaultProxyLibrary implements ProformaLibrary {
 			.add(importProforma.with(P.p(Set.class, "dependencies")))
 			.add(classProxyBodyProforma);
 	
+	/**
+	 * This method allows the static proformas in this library to be registerd with the library so that they can be indexed on proforma name
+	 * @param proformas	The proformas implemented by this library
+	 * @return	A map of the proforma implemented by this library indexed by proforma name
+	 */
 	private static Map<String, Proforma> register(Proforma ... proformas ) {
 		Map<String, Proforma> ps = new HashMap<String, Proforma>();
 		for (Proforma p : proformas) {
@@ -83,6 +117,10 @@ public class DefaultProxyLibrary implements ProformaLibrary {
 		}
 		return ps;
 	}
+	
+	/**
+	 * The map indexing the proforma of this library by name
+	 */
 	private static Map<String, Proforma> proformas = register(
 			classProxyProforma,
 			classProxyBodyProforma,

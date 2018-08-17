@@ -102,6 +102,7 @@ public class DefaultProxyLibrary implements ProformaLibrary {
 	private static Proforma classProxyProforma = new Proforma("classProxy").setAutoIncrementIndent(false)
 			.add("package ", P.p("packageName"), ";")
 			.add()
+			.add("import java.lang.reflect.*;")
 			.add(importProforma.with(P.p(Set.class, "dependencies")))
 			.add(classProxyBodyProforma);
 	
